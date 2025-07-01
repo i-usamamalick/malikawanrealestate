@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "../../App.css";
 import { FaUser, FaLock, FaEye, FaEyeSlash } from "react-icons/fa";
+import Loader from "../common/Loader";
 
 const API_BASE_URL = 'http://localhost:5000/api'; // Fetch base URL from environment variables
 
@@ -8,8 +9,10 @@ const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleLogin = async () => {
+    setIsLoading(true)
     try {
       const response = await fetch(`${API_BASE_URL}/login`, {
         method: "POST",
@@ -27,6 +30,8 @@ const Login = () => {
       }
     } catch (error) {
       alert("Server error. Please try again later.", error)
+    } finally {
+      setIsLoading(false)
     }
   };
   const handleKeyPress = (event) => {
@@ -36,6 +41,7 @@ const Login = () => {
   };
   return (
     <div className="login-container">
+      {isLoading && <Loader/>}
       <h2>Admin Login</h2>
 
       <div className="input-group">
