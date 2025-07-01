@@ -167,7 +167,7 @@ const PropertyGrid = ({ showActions, onEdit }) => {
                   <td>{property.location}</td>
                   <td>
                     <div className="property-image-column">
-                      <img src={property.images.length > 1 ? "/src/images/deafult-multi-property-icon.png" : "/src/images/deafult-single-property-icon.png"} alt="Property Preview" title={property.images.length > 1 ?"Click to view more images":"Click to preview image"} className="property-image" onClick={() => openModal(property.images, 0)} />
+                      <img src={property.images.length > 1 ? "/src/images/deafult-multi-property-icon.png" : "/src/images/deafult-single-property-icon.png"} alt="Property Preview" title={property.images.length > 1 ?"Click to preview images":"Click to preview image"} className="property-image" onClick={() => openModal(property.images, 0)} />
                     </div>
                   </td>
                   <td>{new Date(property.date).toLocaleDateString("en-GB")}</td>
