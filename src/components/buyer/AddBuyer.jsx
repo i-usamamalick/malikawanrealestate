@@ -1,5 +1,8 @@
+import { useState } from "react";
+import Loader from "../common/Loader";
 const API_BASE_URL = "http://localhost:5000/api";
 const AddBuyer = ({ formData, setFormData }) => {
+  const [isLoading, setIsLoading] = useState(false);
   const token = localStorage.getItem("token");
 
   const handleChange = (e) => {
@@ -25,6 +28,7 @@ const AddBuyer = ({ formData, setFormData }) => {
       cleanedFormData.createdAt = `${day}/${month}/${year}`;
     }
     try {
+      setIsLoading(true);
       const endpoint = isEditMode ? "/buyer/edit" : "/buyer/save";
       const method = isEditMode ? "PATCH" : "POST";
       const response = await fetch(`${API_BASE_URL}${endpoint}`, {
@@ -53,10 +57,13 @@ const AddBuyer = ({ formData, setFormData }) => {
       }
     } catch (error) {
       alert("Error saving buyer.");
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
     <div className="addbuyerdashboard">
+      {isLoading && <Loader />}
       <h2>Buyer Dashboard</h2>
       <form onSubmit={handleSubmit}>
         <div className="property-card">

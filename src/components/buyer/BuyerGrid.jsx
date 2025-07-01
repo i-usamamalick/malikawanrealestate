@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import Loader from "../common/Loader";
 
 const BuyerGrid = ({ setFormData }) => {
   const [buyers, setBuyers] = useState([]);
@@ -8,6 +9,7 @@ const BuyerGrid = ({ setFormData }) => {
   const [sortOrder, setSortOrder] = useState("asc");
   const [searchQuery, setSearchQuery] = useState("");
   const [searchColumn, setSearchColumn] = useState("Details");
+  const [isLoading, setIsLoading] = useState(false);
 
   const API_BASE_URL = "http://localhost:5000/api";
 
@@ -26,12 +28,16 @@ const BuyerGrid = ({ setFormData }) => {
   }, []);
 
   const fetchBuyers = async () => {
+    setIsLoading(true);
     try {
       const response = await fetch(`${API_BASE_URL}/buyers`, { method: "GET" });
       const data = await response.json();
       setBuyers(data.buyers);
     } catch (error) {
       console.error("Error fetching buyers:", error);
+    }
+    finally {
+      setIsLoading(false);
     }
   };
 
@@ -40,6 +46,7 @@ const BuyerGrid = ({ setFormData }) => {
     if (!token) return alert("Unauthorized!");
 
     if (confirm("Are you sure you want to delete this buyer?")) {
+      setIsLoading(true);
       try {
         const response = await fetch(`${API_BASE_URL}/buyer/delete`, {
           method: "DELETE",
@@ -60,6 +67,9 @@ const BuyerGrid = ({ setFormData }) => {
       } catch (err) {
         alert("Error deleting buyer.");
       }
+      finally{
+        setIsLoading(false)
+      }
     }
   };
   const handleEdit = async (_id) => {
@@ -67,6 +77,7 @@ const BuyerGrid = ({ setFormData }) => {
   if (!token) return alert("Unauthorized request!");
 
   if (confirm("Are you sure you want to edit this buyer?")) {
+    setIsLoading(true)
     try {
       const response = await fetch(`${API_BASE_URL}/buyer/edit`, {
         method: "PATCH",
@@ -86,6 +97,9 @@ const BuyerGrid = ({ setFormData }) => {
       }
     } catch (error) {
       alert("Error fetching buyer details.");
+    }
+    finally {
+      setIsLoading(false)
     }
   }
 };
@@ -114,6 +128,7 @@ const BuyerGrid = ({ setFormData }) => {
 
   return (
     <div className="buyer-grid-container">
+      {isLoading && <Loader />}
       <div className="filter-tabs">
         <div className="filter-btns">
           {["All", "Buyer", "Rental"].map((type) => (

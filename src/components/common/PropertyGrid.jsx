@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../../App.css";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import Loader from "./Loader";
 
 const PropertyGrid = ({ showActions, onEdit }) => {
   const [filter, setFilter] = useState("All");
@@ -12,18 +13,22 @@ const PropertyGrid = ({ showActions, onEdit }) => {
   const [selectedImages, setSelectedImages] = useState([]);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [properties, setProperties] = useState([]);
+  const [isLoading, setIsLoading] = useState(false)
   const API_BASE_URL = "http://localhost:5000/api";
   useEffect(() => {
     fetchProperties();
   }, []);
 
   const fetchProperties = async () => {
+    setIsLoading(true)
     try {
       const response = await fetch(`${API_BASE_URL}/properties`, { method: "GET" });
       const data = await response.json();
       setProperties(data.properties);
     } catch (error) {
       console.error("Error fetching properties.",error)
+    } finally {
+      setIsLoading(false)
     }
   };
 
@@ -56,6 +61,7 @@ const PropertyGrid = ({ showActions, onEdit }) => {
     if (!token) return alert("Unauthorized request!");
 
     if (confirm("Are you sure you want to delete?") == true ) {
+      setIsLoading(true)
       try {
         const response = await fetch(`${API_BASE_URL}/property/delete`, {
           method: "DELETE",
@@ -76,6 +82,8 @@ const PropertyGrid = ({ showActions, onEdit }) => {
         }
       } catch (error) {
         alert("Error deleting property. Please try again.", error);
+      } finally {
+        setIsLoading(false)
       }
     }
     else {
@@ -106,6 +114,7 @@ const PropertyGrid = ({ showActions, onEdit }) => {
   return (
     <div className="property-container">
       {/* Filter Tabs */}
+      {isLoading && <Loader/>}
       <div className="filter-tabs">
         <div className="filter-btns">
           {["All", "Sale", "Rent"].map((type) => (

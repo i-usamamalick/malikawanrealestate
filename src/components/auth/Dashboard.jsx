@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../../App.css";
 import PropertyGrid from "../common/PropertyGrid";
+import Loader from "../common/Loader";
 import { FaTimes } from "react-icons/fa";
 
 const API_BASE_URL = "http://localhost:5000/api";
@@ -9,6 +10,7 @@ const API_BASE_URL = "http://localhost:5000/api";
 
 const Dashboard = () => {
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
   
   const [formData, setFormData] = useState({
     type: "Sale",
@@ -30,6 +32,7 @@ const Dashboard = () => {
     if (!token) return alert("Unauthorized request!");
 
     if(confirm("Are you sure you want to edit?") == true) {
+      setIsLoading(true);
       try {
         const response = await fetch(`${API_BASE_URL}/property/edit`, {
           method: "PATCH", 
@@ -50,6 +53,8 @@ const Dashboard = () => {
         }
       } catch (error) {
         alert("Error fetching property details. Please try again.", error);
+      } finally {
+        setIsLoading(false);
       }
     }
     else {
@@ -160,6 +165,7 @@ const Dashboard = () => {
     const { createdBy, __v, ...cleanedFormData } = formData;
     console.log(cleanedFormData)
     const apiURL = formData._id == null ? `${API_BASE_URL}/property/save` : `${API_BASE_URL}/property/edit`
+    setIsLoading(true)
     try {
       const response = await fetch(`${apiURL}`, {
         method: `${formData._id == null ? 'POST' : 'PATCH'}`,
@@ -192,6 +198,8 @@ const Dashboard = () => {
       }
     } catch (error) {
       alert("Error saving property. Please try again.", error);
+    } finally {
+      setIsLoading(false)
     }
   };
   const handleCancel = () => {
@@ -214,6 +222,7 @@ const Dashboard = () => {
 
   return (
     <div className="admin-dashboard">
+      {isLoading && <Loader />}
       <h2>Admin Dashboard</h2>
       <button onClick={() => navigate("/buyers")} className="view-buyers-btn">
         Add / View Buyers
