@@ -42,7 +42,8 @@ body {
 }
 
 .navbar .logo img {
-  height: 100px;
+  padding: 10px 0;
+  width: 150px;
 }
 
 /* Hero Section */
