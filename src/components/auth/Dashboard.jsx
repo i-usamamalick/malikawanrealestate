@@ -4,8 +4,8 @@ import "../../App.css";
 import PropertyGrid from "../common/PropertyGrid";
 import { FaTimes } from "react-icons/fa";
 
-// const API_BASE_URL = "http://localhost:5000/api";
-const API_BASE_URL = "malikawanrealestatebackend.railway.internal/api"
+const API_BASE_URL = "http://localhost:5000/api";
+// const API_BASE_URL = "malikawanrealestatebackend.railway.internal/api"
 
 const Dashboard = () => {
   const navigate = useNavigate();
