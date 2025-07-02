@@ -28,7 +28,7 @@ const Dashboard = () => {
   });
 
   const handleEdit = async (_id) => {
-    const token = localStorage.getItem("token"); // Retrieve authentication token
+    const token = sessionStorage.getItem("token"); // Retrieve authentication token
     if (!token) return alert("Unauthorized request!");
 
     if(confirm("Are you sure you want to edit?") == true) {
@@ -155,7 +155,7 @@ const Dashboard = () => {
 
   
   
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const handleSubmit = async () => {
     // (Object.values(formData).some((value) => value === "" || value.length === 0))
     if (!formData || Object.values(formData).some(value => value === "" || (typeof value === "string" && value.trim().length === 0))) {

@@ -42,7 +42,7 @@ const BuyerGrid = ({ setFormData }) => {
   };
 
   const handleDelete = async (_id) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) return alert("Unauthorized!");
 
     if (confirm("Are you sure you want to delete this buyer?")) {
@@ -73,7 +73,7 @@ const BuyerGrid = ({ setFormData }) => {
     }
   };
   const handleEdit = async (_id) => {
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   if (!token) return alert("Unauthorized request!");
 
   if (confirm("Are you sure you want to edit this buyer?")) {

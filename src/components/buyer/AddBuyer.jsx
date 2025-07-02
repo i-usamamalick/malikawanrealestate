@@ -3,7 +3,7 @@ import Loader from "../common/Loader";
 const API_BASE_URL = "http://localhost:5000/api";
 const AddBuyer = ({ formData, setFormData }) => {
   const [isLoading, setIsLoading] = useState(false);
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
 
   const handleChange = (e) => {
     const { name, value } = e.target;

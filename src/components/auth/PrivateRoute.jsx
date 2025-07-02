@@ -1,7 +1,7 @@
 import { Navigate, Outlet } from "react-router-dom";
 
 const PrivateRoute = () => {
-  const token = localStorage.getItem("token"); // Check for stored JWT
+  const token = sessionStorage.getItem("token"); // Check for stored JWT
   return token ? <Outlet /> : <Navigate to="/admin-login" />;
 };
 

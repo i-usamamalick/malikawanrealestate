@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-const token = localStorage.getItem("token");
+const token = sessionStorage.getItem("token");
 import "../../App.css";
 
 const Navbar = () => {
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userId");
+    sessionStorage.removeItem("token");
+    sessionStorage.removeItem("userId");
     window.location.href="admin-login"
   };
   return (

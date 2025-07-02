@@ -22,8 +22,8 @@ const Login = () => {
 
       const data = await response.json();
       if (data.message) {
-        localStorage.setItem("token", data.token); // Store JWT token
-        localStorage.setItem("userId", data.userId); // Store user ID
+        sessionStorage.setItem("token", data.token); // Store JWT token
+        sessionStorage.setItem("userId", data.userId); // Store user ID
         window.location.href="/dashboard"
       } else {
         alert(data.error)

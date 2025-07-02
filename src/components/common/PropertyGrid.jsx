@@ -57,7 +57,7 @@ const PropertyGrid = ({ showActions, onEdit }) => {
   };
 
   const handleDelete = async (id) => {
-    const token = localStorage.getItem("token"); // Retrieve authentication token
+    const token = sessionStorage.getItem("token"); // Retrieve authentication token
     if (!token) return alert("Unauthorized request!");
 
     if (confirm("Are you sure you want to delete?") == true ) {
