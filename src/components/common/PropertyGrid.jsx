@@ -143,7 +143,7 @@ const PropertyGrid = ({ showActions, onEdit }) => {
         <table>
           <thead>
             <tr>
-              {["Type", "Dimensions", "Area", "Price (Rs.)", "Status", "Details", "Area / Location","Images", "Date", "Owner Name", "Contact No.", ].map((col) => (
+              {["Type", "Dimensions", "Area", "Price (Rs.)", "Status", "Details", "Location","Images", "Date", "Owner Name", "Contact No.", ].map((col) => (
                 (col === "Owner Name" || col === "Contact No.") && !showActions ? null : // Hide for non-logged-in users
                 <th key={col} onClick={() => handleSort(col.toLowerCase())}>
                   {col}<span className="order-span"> {sortColumn === col.toLowerCase() ? (sortOrder === "asc" ? "▲" : "▼") : "▼"}</span>
