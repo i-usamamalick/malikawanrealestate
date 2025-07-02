@@ -224,9 +224,6 @@ const Dashboard = () => {
     <div className="admin-dashboard">
       {isLoading && <Loader />}
       <h2>Admin Dashboard</h2>
-      <button onClick={() => navigate("/buyers")} className="view-buyers-btn">
-        Add / View Buyers
-      </button>
       <div className="property-card">
         <div className="fieldRow">
           <div className="fieldCol">
